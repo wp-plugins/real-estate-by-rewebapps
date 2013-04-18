@@ -3,8 +3,8 @@ Author: ReWebApps
 Author URL: http://www.realestatewebapps.com/
 Contributors: Andrew Bowen, Brandon Hubbard
 Donate link: http://www.realestatewebapps.com/
-Tested up to: 3.5
-Stable tag: 1.4.4
+Tested up to: 3.5.1
+Stable tag: 1.4.5
 Tags: real estate, realestate, properties, agents, ReWebApps, Real Estate Web Apps, nextgen-gallery, nextgen gallery, real estate wordpress
 License: GPLv3
 
@@ -38,9 +38,11 @@ Brandon Hubbard - @bhubbard
 
 == Changelog ==
 
-= 1.4.4 =
+= 1.4.5 =
 
-* Added edit link for Neighborhood Galleries
+* Removed Author Box from Properties/Testimonials/Neighborhoods Post Types
+* NextGen-Gallery feature for Properties/Neighborhoods is hidden if plugin is not activated
+* All Agents will display when assigning to Testimonials
 
 = 1.3 =
 
