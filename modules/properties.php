@@ -175,7 +175,7 @@ function get_ngg_prop_dropdown($prop_currid = '') {
 		foreach($prop_tables as $prop_table) {
 			echo '<option value="'.$prop_table->gid.'" ';
 			if ($prop_table->gid == $prop_currid) echo "selected='selected' ";
-				echo '>'.$prop_table->title.'</option>'."\n\t"; 
+				echo '>'.$prop_table->title.'</option>'."\n\t";
 		}
 
 	}
@@ -204,7 +204,7 @@ function get_prop_agent_dropdown() {
 	$prop_agent_loop = new WP_Query( array( 'post_type' => 'agents', 'showposts' => '-1', 'orderby' => 'title', 'order' => 'ASC') );
 	$current_prop_agent = get_post_meta(get_the_ID(), 'dbt_prop_agent_select', true);
 	if ( $prop_agent_loop->have_posts() ) :
-	
+
 	while ( $prop_agent_loop->have_posts() ) : $prop_agent_loop->the_post();
 		$prop_agent_title = get_the_title();
 		echo '<option';
@@ -228,12 +228,12 @@ function prop_show_box() {
 	foreach ($prop_meta_box['fields'] as $field) {
 		// get current post meta data
 		$prop_meta = get_post_meta($post->ID, $field['id'], true);
-		
+
 
 		switch ($field['type']) {
-		
+
 			case 'gal_select':
-			
+
 					   If (is_plugin_active('nextgen-gallery/nggallery.php')) {
      	echo '<tr><td colspan="2"><h4>Property Gallery (Requires NextGen-Gallery Plugin)</h4></td></tr>';
 				echo '<tr>',
@@ -243,7 +243,7 @@ function prop_show_box() {
 				echo '<option value="none">No Gallery</option>';
 				get_ngg_prop_gallerydropdown($prop_meta);
 				echo '</select>';
-				
+
 				echo '&emsp; <a href="'. home_url() .'/wp-admin/admin.php?page=nggallery-manage-gallery&mode=edit&gid=' .$prop_meta . '">Edit Gallery</a>';
 				echo     '</td>','</tr>';
 				echo '<tr><td colspan="2"><strong>Note:</strong>&emsp; You must first choose a gallery, then save or update the property before using the "Edit Gallery" link.</td></tr>';
@@ -295,7 +295,7 @@ function prop_show_box() {
 				echo     '</td>','</tr>';
 				echo '<tr><td colspan="2"><hr style="background:#ddd; border:0px; height:1px; position:relative; width:100%;" /><h4>About the Property</h4></td></tr>';
 			break;
-			
+
 			case 'select_neigh':
 				echo '<tr><td colspan="2"><hr style="background:#ddd; border:0px; height:1px; position:relative; width:100%;" /><h4>Attach a Neighborhood to this Property</h4></td></tr><tr>',
 				'<th style="width:15%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
@@ -320,13 +320,13 @@ function prop_show_box() {
 				echo '</select>';
 				echo     '</td>','</tr>';
 			break;
-			
+
 		}
-	
+
 	}
 	echo '</table>';
 	}
-	
+
 ################################################################################
 // Save Meta Data
 ################################################################################
@@ -335,7 +335,7 @@ add_action('save_post', 'prop_save_data');
 function prop_save_data($post_id) {
     global $prop_meta_box;
     // verify nonce
-    if (!wp_verify_nonce( isset($_POST['prop_meta_box_nonce']), basename(__FILE__))) {
+    if (!wp_verify_nonce( $_POST['prop_meta_box_nonce'], basename(__FILE__))) {
         return $post_id;
     }
     // check autosave
@@ -392,8 +392,8 @@ function property_listing_register() {
 		'menu_position' => null,
 		'supports' => array('title','editor','thumbnail'),
 		'has_archive' => true
-	  ); 
-	  
+	  );
+
 ################################################################################
 // Register Taxonomies - Status, Type
 ################################################################################
@@ -419,10 +419,10 @@ function prop_plugin_load()
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-widget' );
 	wp_enqueue_script( 'jquery-ui-datepicker' );
-	
+
 	// Load Datepicker CSS
 	wp_enqueue_style('jquery-ui-custom', WP_PLUGIN_URL.'/real-estate-by-rewebapps/css/ui.datepicker.css' );
-	
+
 }
 
 
@@ -455,7 +455,7 @@ function rewa_prop_cpt_custom_column($column_name, $post_id) {
     $taxonomy = $column_name;
     $post_type = get_post_type($post_id);
     $terms = get_the_terms($post_id, $taxonomy);
- 
+
     if ( !empty($terms) ) {
         foreach ( $terms as $term )
             $post_terms[] = "<a href='edit.php?post_type={$post_type}&{$taxonomy}={$term->slug}'> " . esc_html(sanitize_term_field('name', $term->name, $term->term_id, $taxonomy, 'edit')) . "</a>";
@@ -470,8 +470,8 @@ function rewa_prop_cpt_custom_column($column_name, $post_id) {
 ################################################################################
 function the_prop_gallery() {
 	$prop_gallery_id = get_post_meta(get_the_ID(), 'dbt_select', true);
-	if ($prop_gallery_id == 'none') { } else { 
-	
+	if ($prop_gallery_id == 'none') { } else {
+
 		echo do_shortcode('<div class="prop-gallery">[nggallery id='.$prop_gallery_id.' template=galleryview images=0]</div>');
 	 }
 }
@@ -495,20 +495,20 @@ function the_list_price() {
 	$get_list_price = get_post_meta(get_the_ID(), 'dbt_list_price', true);
 	$unformatted_list_price = str_replace(array(',', ''), array('', ''), $get_list_price);
 	$the_list_price = number_format_unlimited_precision($unformatted_list_price);
-	if ($the_list_price == '0' || $the_list_price == '') { } else { 
+	if ($the_list_price == '0' || $the_list_price == '') { } else {
 		if (is_singular()) {
 		echo '<li class="pdb-item-title">List Price</li><li class="pdb-item"> $'.$the_list_price.'</li>';
 		} else {
 			echo '<li class="list-price"><strong>List Price</strong>: $'.$the_list_price.'</li>';
 		}
-	
+
 	 }
 }
 /* List Date */
 function the_list_date() {
 	$get_list_date = get_post_meta(get_the_ID(), 'dbt_list_date', true);
 	$the_list_date = $get_list_date;
-	if ($the_list_date == '') { } else { 
+	if ($the_list_date == '') { } else {
 		echo '<li class="pdb-item-title">List Date</li><li class="pdb-item">'.$the_list_date.'</li>';
 	 }
 }
@@ -517,7 +517,7 @@ function the_sold_price() {
 	$get_sold_price = get_post_meta(get_the_ID(), 'dbt_sold_price', true);
 	$unformatted_sold_price = str_replace(array(',', ''), array('', ''), $get_sold_price);
 	$the_sold_price = number_format_unlimited_precision($unformatted_sold_price);
-	if ($the_sold_price == '0' || $the_sold_price == '') { } else { 
+	if ($the_sold_price == '0' || $the_sold_price == '') { } else {
 		echo '<li class="pdb-item-title">Sold Price</li><li class="pdb-item">$ '.$the_sold_price.'</li>';
 	 }
 }
@@ -525,7 +525,7 @@ function the_sold_price() {
 function the_sold_date() {
 	$get_sold_date = get_post_meta(get_the_ID(), 'dbt_sold_date', true);
 	$the_sold_date = $get_sold_date;
-	if ($the_sold_date == '') { } else { 
+	if ($the_sold_date == '') { } else {
 		echo '<li class="pdb-item-title">Sold Date</li><li class="pdb-item">'.$the_sold_date.'</li>';
 	 }
 }
@@ -538,8 +538,8 @@ function link_replace_callback($matches)
 function the_prop_neighborhood() {
 	$get_prop_neighborhood = get_post_meta(get_the_ID(), 'dbt_neighborhood_select', true);
 	$the_prop_neighborhood = $get_prop_neighborhood;
-	if ($the_prop_neighborhood == '' || $the_prop_neighborhood == "none") { } else { 
-	
+	if ($the_prop_neighborhood == '' || $the_prop_neighborhood == "none") { } else {
+
 		echo '<li class="pdb-item-title">Neighborhood:<li><li class="pdb-item"><a href="';
 		echo home_url();
 		echo '/neighborhoods/';
@@ -553,12 +553,12 @@ function the_prop_neighborhood() {
 function the_prop_agent() {
 	$get_prop_agent = get_post_meta(get_the_ID(), 'dbt_prop_agent_select', true);
 	$the_prop_agent = $get_prop_agent;
-	
+
 	$total = count($the_prop_agent);
 	$i=0;
-	if ($the_prop_agent == '' || $the_prop_agent == "none") { } else { 
+	if ($the_prop_agent == '' || $the_prop_agent == "none") { } else {
 	echo '<li class="pdb-item-title">Agent(s):<li><li class="pdb-item">';
-	
+
 		foreach($the_prop_agent as $prop_agent) {
 			$i++;
 			echo '<a href="';
@@ -570,54 +570,54 @@ function the_prop_agent() {
 			echo '</a>';
 			if ($i != $total) echo', ';
 		}
-		
-	
+
+
 	echo '</li><li class="clear"></li>';
 
 
-		
+
 	 }
 }
 /* Property Address */
 function the_prop_address() {
 	$get_prop_address = get_post_meta(get_the_ID(), 'dbt_prop_address', true);
 	$the_prop_address = $get_prop_address;
-	if ($the_prop_address == '') { } else { 
+	if ($the_prop_address == '') { } else {
 		echo $the_prop_address;
 	 }
 }
 function the_prop_city() {
 	$get_prop_city = get_post_meta(get_the_ID(), 'dbt_prop_city', true);
 	$the_prop_city = $get_prop_city;
-	if ($the_prop_city == '') { } else { 
+	if ($the_prop_city == '') { } else {
 		echo $the_prop_city;
 	 }
 }
 function the_prop_state() {
 	$get_prop_state = get_post_meta(get_the_ID(), 'dbt_prop_state', true);
 	$the_prop_state = $get_prop_state;
-	if ($the_prop_state == '') { } else { 
+	if ($the_prop_state == '') { } else {
 		echo $the_prop_state;
 	 }
 }
 function the_prop_zip() {
 	$get_prop_zip = get_post_meta(get_the_ID(), 'dbt_prop_zip', true);
 	$the_prop_zip = $get_prop_zip;
-	if ($the_prop_zip == '') { } else { 
+	if ($the_prop_zip == '') { } else {
 		echo $the_prop_zip;
 	 }
 }
 function the_mls_id() {
 	$get_mls_id = get_post_meta(get_the_ID(), 'dbt_mls_id', true);
 	$the_mls_id = $get_mls_id;
-	if ($the_mls_id == '') { } else { 
+	if ($the_mls_id == '') { } else {
 		echo '<li class="pdb-item-title">MLS ID</li><li class="pdb-item">'.$the_mls_id.'</li><li class="clear"></li>';
 	 }
 }
 function the_prop_bed() {
 	$get_prop_bed = get_post_meta(get_the_ID(), 'dbt_prop_bed', true);
 	$the_prop_bed = $get_prop_bed;
-	if ($the_prop_bed == '') { } else { 
+	if ($the_prop_bed == '') { } else {
 		if (is_singular()) {
 			echo '<li class="pdb-item-title">Bedrooms</li><li class="pdb-item">'.$the_prop_bed.'</li><li class="clear"></li>';
 		} else {
@@ -628,7 +628,7 @@ function the_prop_bed() {
 function the_prop_bath() {
 	$get_prop_bath = get_post_meta(get_the_ID(), 'dbt_prop_bath', true);
 	$the_prop_bath = $get_prop_bath;
-	if ($the_prop_bath == '') { } else { 
+	if ($the_prop_bath == '') { } else {
 		if (is_singular()) {
 			echo '<li class="pdb-item-title">Bathrooms</li><li class="pdb-item">'.$the_prop_bath.'</li><li class="clear"></li>';
 	 	} else {
@@ -639,35 +639,35 @@ function the_prop_bath() {
 function the_prop_half_bath() {
 	$get_prop_half_bath = get_post_meta(get_the_ID(), 'dbt_prop_half_bath', true);
 	$the_prop_half_bath = $get_prop_half_bath;
-	if ($the_prop_half_bath == '') { } else { 
+	if ($the_prop_half_bath == '') { } else {
 		echo '<li class="pdb-item-title">Half Baths</li><li class="pdb-item">'.$the_prop_half_bath.'</li><li class="clear"></li>';
 	 }
 }
 function the_prop_garage() {
 	$get_prop_garage = get_post_meta(get_the_ID(), 'dbt_prop_garage', true);
 	$the_prop_garage = $get_prop_garage;
-	if ($the_prop_garage == '') { } else { 
+	if ($the_prop_garage == '') { } else {
 		echo '<li class="pdb-item-title">Garage Spaces</li><li class="pdb-item">'.$the_prop_garage.'</li><li class="clear"></li>';
 	 }
 }
 function the_prop_living_space() {
 	$get_prop_living_space = get_post_meta(get_the_ID(), 'dbt_prop_living_space', true);
 	$the_prop_living_space = $get_prop_living_space;
-	if ($the_prop_living_space == '') { } else { 
+	if ($the_prop_living_space == '') { } else {
 		echo '<li class="pdb-item-title">Living Space</li><li class="pdb-item">'.$the_prop_living_space.' SqFt.</li><li class="clear"></li>';
 	 }
 }
 function the_prop_land_size() {
 	$get_prop_land_size = get_post_meta(get_the_ID(), 'dbt_prop_land_size', true);
 	$the_prop_land_size = $get_prop_land_size;
-	if ($the_prop_land_size == '') { } else { 
+	if ($the_prop_land_size == '') { } else {
 		echo '<li class="pdb-item-title">Lot Size</li><li class="pdb-item">'.$the_prop_land_size.' SqFt.</li><li class="clear"></li>';
 	 }
 }
 function the_prop_virtual_tour() {
 	$get_prop_virtual_tour = get_post_meta(get_the_ID(), 'dbt_prop_virtual_tour', true);
 	$the_prop_virtual_tour = $get_prop_virtual_tour;
-	if ($the_prop_virtual_tour == '') { } else { 
+	if ($the_prop_virtual_tour == '') { } else {
 		echo '<div class="virtual-tour"><a href="'.$the_prop_virtual_tour.'" target="_blank">Virtual Tour</a></div>';
 	 }
 }
@@ -739,7 +739,7 @@ function include_properties_template( $template_path ) {
                 $template_path = plugin_dir_path( __FILE__ ) . '../templates/single-properties.php';
             }
         }
-        
+
         // Archive Template
         if ( is_archive() ) {
             // checks if the file exists in the theme first,
@@ -750,8 +750,8 @@ function include_properties_template( $template_path ) {
                 $template_path = plugin_dir_path( __FILE__ ) . '../templates/archive-properties.php';
             }
         }
-    
-        
+
+
     }
     return $template_path;
 }

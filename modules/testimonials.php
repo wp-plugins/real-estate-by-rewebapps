@@ -31,7 +31,7 @@ $testimonials_meta_box = array(
 			'name' => 'Select an Agent',
 			'id' => $testimonials_prefix . 'testimonials_agent_select',
 			'type' => 'select_agent'
-		)   
+		)
 	)
 );
 
@@ -81,17 +81,20 @@ function testimonials_show_box() {
 				$post = $testimonials_agent_holder;
 				echo '</select>';
 				echo     '</td>','</tr>';
-			break;     
+			break;
 		}
 	}
 	echo '</table>';
 }
+########################################################
+// Save Data
+########################################################
 add_action('save_post', 'testimonials_save_data');
 // Save data from meta box
 function testimonials_save_data($post_id) {
 	global $testimonials_meta_box;
 	// verify nonce
-	if (!wp_verify_nonce( isset($_POST['testimonials_meta_box_nonce']), basename(__FILE__))) {
+	if (!wp_verify_nonce( $_POST['testimonials_meta_box_nonce'], basename(__FILE__))) {
 		return $post_id;
 	}
 	// check autosave
@@ -148,7 +151,7 @@ function testimonials_register() {
 		'menu_position' => null,
 		'supports' => array('title','editor','thumbnail', 'tags'),
 		'has_archive' => true
-	  ); 
+	  );
 	register_post_type( 'testimonials' , $args );
 }
 
@@ -160,7 +163,7 @@ function the_testimonials_agent() {
 	$the_testimonials_agent = $get_testimonials_agent;
 	$total = count($the_testimonials_agent);
 	$i=0;
-	if ($the_testimonials_agent == '' || $the_testimonials_agent == "none") { } else { 
+	if ($the_testimonials_agent == '' || $the_testimonials_agent == "none") { } else {
 	echo 'Testimonial for ';
 		foreach($the_testimonials_agent as $testimonials_agent) {
 			$i++;

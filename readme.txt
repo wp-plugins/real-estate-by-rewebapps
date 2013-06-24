@@ -12,9 +12,9 @@ License: GPLv3
 
 <h3>Currently in BETA release</h3>
 
-The Real Estate by ReWebApps plugin for wordpress gives users the ability to manage Agents, Properties, and Neighborhoods all inside Wordpress. 
+The Real Estate by ReWebApps plugin for wordpress gives users the ability to manage Agents, Properties, and Neighborhoods all inside Wordpress.
 
-Note: Currently this plugin is in beta, in order to use you would need to create template files within your theme. 
+Note: Currently this plugin is in beta, in order to use you would need to create template files within your theme.
 
 
 == Credits ==
@@ -37,6 +37,10 @@ Brandon Hubbard - @bhubbard
 1. Details Coming Soon
 
 == Changelog ==
+
+= 1.4.6 =
+
+* Fixed bug for custom meta fields not saving in WordPress 3.5.2
 
 = 1.4.5 =
 
