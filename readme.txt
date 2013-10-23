@@ -3,18 +3,18 @@ Author: ReWebApps
 Author URL: http://www.realestatewebapps.com/
 Contributors: Andrew Bowen, Brandon Hubbard
 Donate link: http://www.realestatewebapps.com/
-Tested up to: 3.5.2
-Stable tag: 1.4.6
+Tested up to: 3.6.1
+Stable tag: 1.4.7
 Tags: real estate, realestate, properties, agents, ReWebApps, Real Estate Web Apps, nextgen-gallery, nextgen gallery, real estate wordpress
 License: GPLv3
 
 == Description ==
 
-<h3>Currently in BETA release</h3>
+<h3>NOTICE: This plugin is no longer being supported.</h3>
+
+NOTICE: The Real Estate by ReWebApps plugin is no longer being supported. The plugin is currently used to display your Properties/Neighborhoods/Agents/Testimonials. Please start migrating to an IDX service or another WordPress Plugin solution. Please contact your Designer and/or Developer if you have any questions. Any galleries created with NextGen-Gallery Plugin will NOT be removed when the plugin is uninstalled. We recommend you first backup your data please use the WordPress Export Tool before un-installing the plugin.
 
 The Real Estate by ReWebApps plugin for wordpress gives users the ability to manage Agents, Properties, and Neighborhoods all inside Wordpress.
-
-Note: Currently this plugin is in beta, in order to use you would need to create template files within your theme.
 
 
 == Credits ==
@@ -37,6 +37,12 @@ Brandon Hubbard - @bhubbard
 1. Details Coming Soon
 
 == Changelog ==
+
+= 1.4.7 =
+
+* Moved Presstrends Code to under modules
+* Added a notice regarding Support & Future of the plugin
+* Created an Uninstaller to cleanup database on uninstall
 
 = 1.4.6 =
 
