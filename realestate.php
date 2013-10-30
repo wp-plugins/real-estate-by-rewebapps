@@ -3,7 +3,7 @@
 Plugin Name: Real Estate by ReWebApps
 Plugin URI: http://www.realestatewebapps.com
 Description: A custom Real Estate plugin that offers properties, neighborhoods, agents, and testimonials. Requires the NextGen-Gallery plugin for property images.
-Version: 1.4.7
+Version: 1.4.8
 Author: ReWebApps
 Author URI: http://www.realestatewebapps.com
 License: GPL3
@@ -74,6 +74,10 @@ function rewebapps_uninstall(){
 	$wpdb->query("DELETE FROM $table WHERE meta_key='dbt_prop_living_space'");
 	$wpdb->query("DELETE FROM $table WHERE meta_key='dbt_prop_land_size'");
 	$wpdb->query("DELETE FROM $table WHERE meta_key='dbt_prop_virtual_tour'");
+	$wpdb->query("DELETE FROM $table WHERE meta_key='dbt_latitude'");
+	$wpdb->query("DELETE FROM $table WHERE meta_key='dbt_longitude'");
+	$wpdb->query("DELETE FROM $table WHERE meta_key='dbt_prop_country'");
+
 
 	// Neighborhods
 	$wpdb->query("DELETE FROM $table WHERE meta_key='dbt_neigh_city'");

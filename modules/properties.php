@@ -64,6 +64,19 @@ $prop_meta_box = array(
             'std' => ''
         ),
         array(
+            'name' => 'Latitude',
+            'id' => $prop_prefix . 'latitude',
+            'type' => 'text',
+            'std' => ''
+        ),
+        array(
+            'name' => 'Longitude',
+            'id' => $prop_prefix . 'longitude',
+            'type' => 'text',
+            'std' => ''
+        ),
+
+        array(
             'name' => 'Street Address',
             'id' => $prop_prefix . 'prop_address',
             'type' => 'text',
@@ -81,13 +94,20 @@ $prop_meta_box = array(
             'type' => 'text',
             'std' => ''
         ),
+           array(
+            'name' => 'Country',
+            'id' => $prop_prefix . 'prop_country',
+            'type' => 'select_country',
+            'options' => array('United States', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola', 'Anguilla', 'Antarctica', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Bouvet Island', 'Brazil', 'British Indian Ocean Territory', 'Brunei Darussalam', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Cayman Islands', 'Central African Republic', 'Chad', 'Chile', 'China', 'Christmas Island', 'Cocos Islands', 'Colombia', 'Comoros', 'Congo', 'Congo, Democratic Republic of the', 'Cook Islands', 'Costa Rica', 'Cote dIvoire', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Falkland Islands', 'Faroe Islands', 'Fiji', 'Finland', 'France', 'French Guiana', 'French Polynesia', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Greenland', 'Grenada', 'Guadeloupe', 'Guam', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Heard Island and McDonald Islands', 'Honduras', 'Hong Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macao', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Martinique', 'Mauritania', 'Mauritius', 'Mayotte', 'Mexico', 'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'Netherlands Antilles', 'New Caledonia', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'Norfolk Island', 'North Korea', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Palestinian Territory', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Pitcairn', 'Poland', 'Portugal', 'Puerto Rico', 'Qatar', 'Romania', 'Russian Federation', 'Rwanda', 'Saint Helena', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Pierre and Miquelon', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'Sao Tome and Principe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Georgia', 'South Korea', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Svalbard and Jan Mayen', 'Swaziland', 'Sweden', 'Switzerland', 'Syrian Arab Republic', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'The Former Yugoslav Republic of Macedonia', 'Timor-Leste', 'Togo', 'Tokelau', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'Uruguay', 'United States Minor Outlying Islands', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City', 'Venezuela', 'Vietnam', 'Virgin Islands, British', 'Virgin Islands, U.S.', 'Wallis and Futuna', 'Western Sahara', 'Yemen', 'Zambia', 'Zimbabwe')
+        ),
+
          array(
             'name' => 'Zip Code',
             'id' => $prop_prefix . 'prop_zip',
             'type' => 'endgroup2',
             'std' => ''
         ),
-        array(
+                     array(
          	'name' => 'MLS ID',
          	'id' => $prop_prefix . 'mls_id',
          	'type' => 'text',
@@ -308,6 +328,19 @@ function prop_show_box() {
 				echo '</select>';
 				echo     '</td>','</tr>';
 			break;
+
+			case 'select_country':
+
+				echo '<th style="width:15%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
+				'<td>';
+				echo '<select name="', $field['id'], '" id="', $field['id'], '">';
+                foreach ($field['options'] as $option) {
+                    echo '<option', $prop_meta == $option ? ' selected="selected"' : '', '>', $option, '</option>';
+                }
+                echo '</select>';
+				echo     '</td>','</tr>';
+			break;
+
 			case 'select_agent':
 				echo '<tr><td colspan="2"><hr style="background:#ddd; border:0px; height:1px; position:relative; width:100%;" /><h4>Assign Agents or Multiple Agents</h4></td></tr><tr>',
 				'<th style="width:15%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
@@ -320,6 +353,15 @@ function prop_show_box() {
 				echo '</select>';
 				echo     '</td>','</tr>';
 			break;
+
+			case 'radio':
+				echo '<tr><th style="width:15%"><label for="', $field['id'], '">', $field['name'], '</label> </th><td>';
+				foreach ($field['options'] as $option) {
+					echo ' <input type="radio" name="', $field['id'], '" value="', $option['value'], '"', $prop_meta == $option['value'] ? ' checked="checked"' : '', ' />', $option['name'];
+				}
+				echo '</td></tr>';
+			break;
+
 
 		}
 
@@ -578,6 +620,8 @@ function the_prop_agent() {
 
 	 }
 }
+
+
 /* Property Address */
 function the_prop_address() {
 	$get_prop_address = get_post_meta(get_the_ID(), 'dbt_prop_address', true);
@@ -598,6 +642,13 @@ function the_prop_state() {
 	$the_prop_state = $get_prop_state;
 	if ($the_prop_state == '') { } else {
 		echo $the_prop_state;
+	 }
+}
+function the_prop_country() {
+	$get_prop_country = get_post_meta(get_the_ID(), 'dbt_prop_country', true);
+	$the_prop_country = $get_prop_country;
+	if ($the_prop_country == '') { } else {
+		echo $the_prop_country;
 	 }
 }
 function the_prop_zip() {
@@ -676,6 +727,23 @@ function properties_posts_per_page($query) {
     return $query;
 }
 if ( !is_admin() ) add_filter( 'pre_get_posts', 'properties_posts_per_page' );
+
+
+function the_prop_latitude() {
+	$the_prop_latitude = get_post_meta(get_the_ID(), 'dbt_latitude', true);
+	$the_prop_latitude = $the_prop_latitude;
+	if ($the_prop_latitude == '') { } else {
+		echo $the_prop_latitude;
+	 }
+}
+
+function the_prop_longitude() {
+	$the_prop_longitude = get_post_meta(get_the_ID(), 'dbt_longitude', true);
+	$the_prop_longitude = $the_prop_longitude;
+	if ($the_prop_longitude == '') { } else {
+		echo $the_prop_longitude;
+	 }
+}
 
 
 ################################################################################
