@@ -275,7 +275,7 @@ function prop_show_box() {
 				echo '<tr>',
 				'<th style="width:15%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
 				'<td><div style="margin-left:-10px;">';
-				echo '$ <input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $prop_meta ? $prop_meta : $field['std'], '" size="20" style="width:20%; min-width:150px;" />', '<br />', isset($field['desc']);
+				echo '$ <input type="text" class="numbers_only" name="', $field['id'], '" id="', $field['id'], '" value="', $prop_meta ? $prop_meta : $field['std'], '" size="20" style="width:20%; min-width:150px;" />', '<br />', isset($field['desc']);
 				echo     '</div></td>','</tr>';
 			break;
 			case 'text':
@@ -367,6 +367,25 @@ function prop_show_box() {
 
 	}
 	echo '</table>';
+	echo '
+	<script>
+	jQuery(document).ready(function() {
+		jQuery(".numbers_only").keydown(function(event)  {
+
+			if ( event.keyCode == 46 || event.keyCode == 8 ) {
+
+			}
+			else {
+					// Ensure that it is a number and stop the keypress
+					if (event.keyCode < 48 || event.keyCode > 57 ) {
+							event.preventDefault();
+					}
+			}
+		});
+	});
+	</script>
+	';
+
 	}
 
 ################################################################################
