@@ -564,7 +564,7 @@ function number_format_unlimited_precision($number,$decimal = '.')	{
 function the_list_price() {
 	$get_list_price = get_post_meta(get_the_ID(), 'dbt_list_price', true);
 	$unformatted_list_price = str_replace(array(',', ''), array('', ''), $get_list_price);
-	$the_list_price = number_format_unlimited_precision($unformatted_list_price);
+	$the_list_price = formatted_number(number_format_unlimited_precision($unformatted_list_price));
 	if ($the_list_price == '0' || $the_list_price == '') { } else {
 		if (is_singular()) {
 		echo '<li class="pdb-item-title">List Price</li><li class="pdb-item"> $'.$the_list_price.'</li>';
@@ -574,6 +574,18 @@ function the_list_price() {
 
 	 }
 }
+
+/* Number Formatting */
+function formatted_number($number) {
+	if( abs($number - floor($number)) < 0.001 )
+	  //Display whole number without decimal
+	  return number_format($number,0);
+	else {
+	  //Show the decimal value
+	  return number_format($number,2);
+	}
+}
+
 /* List Date */
 function the_list_date() {
 	$get_list_date = get_post_meta(get_the_ID(), 'dbt_list_date', true);
@@ -586,7 +598,7 @@ function the_list_date() {
 function the_sold_price() {
 	$get_sold_price = get_post_meta(get_the_ID(), 'dbt_sold_price', true);
 	$unformatted_sold_price = str_replace(array(',', ''), array('', ''), $get_sold_price);
-	$the_sold_price = number_format_unlimited_precision($unformatted_sold_price);
+	$the_sold_price = formatted_number(number_format_unlimited_precision($unformatted_sold_price));
 	if ($the_sold_price == '0' || $the_sold_price == '') { } else {
 		echo '<li class="pdb-item-title">Sold Price</li><li class="pdb-item">$ '.$the_sold_price.'</li>';
 	 }
