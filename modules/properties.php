@@ -63,6 +63,15 @@ $prop_meta_box = array(
             'type' => 'endgroup1',
             'std' => ''
         ),
+		array(
+			'name' => 'Use Lat/Long for map?',
+			'id' => $prop_prefix . 'use_latlong',
+			'type' => 'radio',
+			'options' => array(
+			array('name' => ' No ', 'value' => 'No'),
+			array('name' => ' Yes ', 'value' => 'Yes')
+			)
+		),
         array(
             'name' => 'Latitude',
             'id' => $prop_prefix . 'latitude',
@@ -763,6 +772,71 @@ function the_prop_longitude() {
 		echo $the_prop_longitude;
 	 }
 }
+
+
+
+function the_property_map() {
+	$the_use_latlong = get_post_meta(get_the_ID(), 'dbt_use_latlong', true);
+	$the_prop_lat = get_post_meta(get_the_ID(), 'dbt_latitude', true);
+	$the_prop_long = get_post_meta(get_the_ID(), 'dbt_longitude', true);
+?>
+<div id="map_canvas" class="property-map"></div>
+<?php wp_enqueue_script('google-maps-api', '//maps.googleapis.com/maps/api/js?sensor=false', 'jquery', null, false); ?>
+
+<script type="text/javascript">
+	var geocoder;
+  	var map;
+  	var address ="<?php if ($the_use_latlong == 'Yes') : echo $the_prop_lat.', '.$the_prop_long; else : ?><?php the_prop_address(); ?>, <?php the_prop_city(); ?>, <?php the_prop_state(); ?> <?php the_prop_zip(); endif; ?>";
+  	function initialize() {
+    geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(-34.397, 150.644);
+    var myOptions = {
+    	zoom: 15,
+        center: latlng,
+        mapTypeControl: true,
+    	mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+    	navigationControl: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    if (geocoder) {
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+          map.setCenter(results[0].geometry.location);
+
+            var infowindow = new google.maps.InfoWindow(
+                { content: '<b>'+address+'</b>',
+                  size: new google.maps.Size(150,50)
+                });
+
+            var marker = new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: map,
+                title:address
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map,marker);
+            });
+
+          } else {
+            alert("No results found");
+          }
+        } else {
+          alert("Geocode was not successful for the following reason: " + status);
+        }
+      });
+    }
+  }
+  jQuery("document").ready(function(){
+  	initialize();
+  });
+		</script>
+<?php
+
+}
+
+
 
 
 ################################################################################
