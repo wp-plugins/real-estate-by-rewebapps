@@ -4,7 +4,7 @@ Author URL: http://www.realestatewebapps.com/
 Contributors: Andrew Bowen, Brandon Hubbard
 Donate link: http://www.realestatewebapps.com/
 Tested up to: 3.7.1
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 Tags: real estate, realestate, properties, agents, ReWebApps, Real Estate Web Apps, nextgen-gallery, nextgen gallery, real estate wordpress
 License: GPLv3
 
@@ -34,6 +34,9 @@ Brandon Hubbard - @bhubbard
 
 
 == Changelog ==
+
+= 1.5.4 =
+* Switched to is_tax for Taxonomy Template checks
 
 = 1.5.3 =
 * Fixed bug related to template files for Property-Status & Property Type
