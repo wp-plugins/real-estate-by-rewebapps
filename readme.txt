@@ -4,7 +4,7 @@ Author URL: http://www.realestatewebapps.com/
 Contributors: Andrew Bowen, Brandon Hubbard
 Donate link: http://www.realestatewebapps.com/
 Tested up to: 3.7.1
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 Tags: real estate, realestate, properties, agents, ReWebApps, Real Estate Web Apps, nextgen-gallery, nextgen gallery, real estate wordpress
 License: GPLv3
 
@@ -32,11 +32,12 @@ Brandon Hubbard - @bhubbard
 1. Add Property Galleries via the NextGen Gallery plugin, and then edit your property to choose the appropriate gallery.
 1. Modify your theme to display properties, templates coming soon.
 
-= Advanced Usage: =
-
-1. Details Coming Soon
 
 == Changelog ==
+
+= 1.5.3 =
+* Fixed bug related to template files for Property-Status & Property Type
+* Removed resource template file as we no longer have resources
 
 = 1.5.2 =
 

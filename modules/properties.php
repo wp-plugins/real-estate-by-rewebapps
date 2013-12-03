@@ -924,6 +924,27 @@ function include_properties_template( $template_path ) {
             }
         }
 
+        // Property Status Template
+        if ( is_taxonomy('property-status')) {
+	        // checks if the file exists in the theme first,
+            // otherwise serve the file from the plugin
+            if ( $theme_file = locate_template( array ( 'taxonomy-property-status.php' ) ) ) {
+                $template_path = $theme_file;
+            } else {
+                $template_path = plugin_dir_path( __FILE__ ) . '../templates/taxonomy-property-status.php';
+            }
+
+        // Property Type Template
+        if ( is_taxonomy('property-type')) {
+	        // checks if the file exists in the theme first,
+            // otherwise serve the file from the plugin
+            if ( $theme_file = locate_template( array ( 'taxonomy-property-type.php' ) ) ) {
+                $template_path = $theme_file;
+            } else {
+                $template_path = plugin_dir_path( __FILE__ ) . '../templates/taxonomy-property-type.php';
+            }
+
+
 
     }
     return $template_path;
