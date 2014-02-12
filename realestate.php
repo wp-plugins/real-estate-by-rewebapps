@@ -3,7 +3,7 @@
 Plugin Name: Real Estate by ReWebApps
 Plugin URI: http://www.realestatewebapps.com
 Description: A custom Real Estate plugin that offers properties, neighborhoods, agents, and testimonials. Requires the NextGen-Gallery plugin for property images.
-Version: 1.5.4
+Version: 1.5.5
 Author: ReWebApps
 Author URI: http://www.realestatewebapps.com
 License: GPL3
@@ -17,9 +17,6 @@ require_once('modules/neighborhoods.php');
 
 // Load Agents Module
 require_once('modules/agents.php');
-
-// Load Testimonials Module
-require_once('modules/testimonials.php');
 
 // Load Presstrends
 require_once('modules/presstrends.php');
