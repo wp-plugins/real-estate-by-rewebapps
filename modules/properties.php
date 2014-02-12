@@ -552,9 +552,9 @@ function number_format_unlimited_precision($number,$decimal = '.')	{
 	if (is_decimal($number)) {
 		$broken_number = explode($decimal,$number);
 		if($broken_number[2]==0){
-			return number_format((double)$broken_number[0]);
+			return number_format($broken_number[0]);
 		} else {
-			return number_format((double)$broken_number[0]).$decimal.$broken_number[2];
+			return number_format($broken_number[0]).$decimal.$broken_number[2];
 		}
 	} else {
 		return $number;
@@ -565,7 +565,9 @@ function the_list_price() {
 	$get_list_price = get_post_meta(get_the_ID(), 'dbt_list_price', true);
 	$unformatted_list_price = str_replace(array(',', ''), array('', ''), $get_list_price);
 	$the_list_price = formatted_number(number_format_unlimited_precision($unformatted_list_price));
-	if ($the_list_price == '0' || $the_list_price == '') { } else {
+	if ($the_list_price == '0' || $the_list_price == '' || $the_list_price == ' ') {
+		echo '<li class="list-price"><strong>List Price</strong>: TBD </li>';
+	} else {
 		if (is_singular()) {
 		echo '<li class="pdb-item-title">List Price</li><li class="pdb-item"> $'.$the_list_price.'</li>';
 		} else {
@@ -579,7 +581,7 @@ function the_list_price() {
 function formatted_number($number) {
 	if( abs($number - floor($number)) < 0.001 )
 	  //Display whole number without decimal
-	  return number_format($number,0);
+	  return number_format((double)$number,0);
 	else {
 	  //Show the decimal value
 	  return number_format($number,2);
@@ -599,7 +601,9 @@ function the_sold_price() {
 	$get_sold_price = get_post_meta(get_the_ID(), 'dbt_sold_price', true);
 	$unformatted_sold_price = str_replace(array(',', ''), array('', ''), $get_sold_price);
 	$the_sold_price = formatted_number(number_format_unlimited_precision($unformatted_sold_price));
-	if ($the_sold_price == '0' || $the_sold_price == '') { } else {
+	if ($the_sold_price == '0' || $the_sold_price == '' || $the_sold_price == ' ') {
+		echo '<li class="pdb-item-title">Sold Price</li><li class="pdb-item"> TBD </li>';
+	} else {
 		echo '<li class="pdb-item-title">Sold Price</li><li class="pdb-item">$ '.$the_sold_price.'</li>';
 	 }
 }
@@ -794,7 +798,6 @@ function the_property_map() {
 ?>
 <div id="map_canvas" class="property-map"></div>
 <?php wp_enqueue_script('google-maps-api', '//maps.googleapis.com/maps/api/js?sensor=false', 'jquery', null, false); ?>
-
 <script type="text/javascript">
 	var geocoder;
   	var map;
@@ -835,7 +838,7 @@ function the_property_map() {
             alert("No results found");
           }
         } else {
-          alert("Geocode was not successful for the following reason: " + status);
+          // alert("Geocode was not successful for the following reason: " + status);
         }
       });
     }

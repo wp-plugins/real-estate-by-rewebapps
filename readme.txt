@@ -4,7 +4,7 @@ Author URL: http://www.realestatewebapps.com/
 Contributors: Andrew Bowen, Brandon Hubbard
 Donate link: http://www.realestatewebapps.com/
 Tested up to: 3.7.1
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 Tags: real estate, realestate, properties, agents, ReWebApps, Real Estate Web Apps, nextgen-gallery, nextgen gallery, real estate wordpress
 License: GPLv3
 
@@ -34,6 +34,12 @@ Brandon Hubbard - @bhubbard
 
 
 == Changelog ==
+
+= 1.5.5 =
+* Removed Testimonials
+* Removed Map Popup Error when no geocode is found on property maps
+* Fixed Pricing Format PHP Notice on List Price for Properties
+* Cleaned up templates a bit to use regular WordPress loop, still needs work
 
 = 1.5.4 =
 * Switched to is_tax for Taxonomy Template checks
