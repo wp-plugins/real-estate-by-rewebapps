@@ -7,13 +7,11 @@
   <h1 class="pagetitle"><?php post_type_archive_title() ?></h1>
 
 
-<?php $args = array( 'post_type' => 'properties', 'posts_per_page' => 10,  'orderby' => 'menu_order', 'order' => 'ASC' ); $loop = new WP_Query( $args );
-while ( $loop->have_posts() ) : $loop->the_post();  ?>
+		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
 
-
-<a href="<?php the_permalink() ?>"><h2><?php the_title(); ?></h2></a><br />
-<?php the_prop_address(); ?> <?php the_prop_city(); ?>, <?php the_prop_state(); ?> <?php the_prop_zip(); ?>
+		<a href="<?php the_permalink() ?>"><h2><?php the_title(); ?></h2></a><br />
+		<?php the_prop_address(); ?> <?php the_prop_city(); ?>, <?php the_prop_state(); ?> <?php the_prop_zip(); ?>
 
 
 
@@ -35,11 +33,11 @@ while ( $loop->have_posts() ) : $loop->the_post();  ?>
 
 
 
-<?php 	the_excerpt(); ?>
+<?php the_excerpt(); ?>
 
 <hr>
 
-<?php endwhile; ?>
+<?php endwhile; endif; ?>
 
 
 		</div>
