@@ -4,7 +4,7 @@ Author URL: http://www.realestatewebapps.com/
 Contributors: Andrew Bowen, Brandon Hubbard
 Donate link: http://www.realestatewebapps.com/
 Tested up to: 3.7.1
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 Tags: real estate, realestate, properties, agents, ReWebApps, Real Estate Web Apps, nextgen-gallery, nextgen gallery, real estate wordpress
 License: GPLv3
 
@@ -34,6 +34,12 @@ Brandon Hubbard - @bhubbard
 
 
 == Changelog ==
+
+= 1.5.6 =
+* Dropdown to choose metric type (acres, sqft, etc)
+* Dropdown to choose currency for prices
+* Support for Weekly and Monthly Rental Prices (high and low season)
+* Hide/Show Price Option
 
 = 1.5.5 =
 * Removed Testimonials

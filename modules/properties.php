@@ -39,6 +39,22 @@ $prop_meta_box = array(
             'id' => $prop_prefix . 'select',
             'type' => 'gal_select'
         ),
+        array(
+			'name' => 'Hide Price?',
+			'id' => $prop_prefix . 'hide_price',
+			'type' => 'radio',
+			'options' => array(
+				array('name' => ' No ', 'value' => 'No'),
+				array('name' => ' Yes ', 'value' => 'Yes')
+			)
+		),
+        array(
+            'name' => 'Currency Code',
+            'id' => $prop_prefix . 'list_currency',
+            'type' => 'select_currency',
+            // http://www.science.co.il/International/Currency-codes.asp
+            'options' => array('USD', 'EUR', 'AFN', 'ALL', 'DZD', 'AOA', 'XCD', 'ARS', 'AMD', 'AWG', 'AUD', 'AZN', 'BSD', 'BHD', 'BDT', 'BBD', 'BYR', 'BZD', 'XOF', 'BMD', 'BTN', 'BOB', 'BAM', 'BWP', 'NOK', 'BRL', 'BND', 'BGN', 'BIF', 'KHR', 'XAF', 'CAD', 'CVE', 'KYD', 'CLP', 'CNY', 'COP', 'KMF', 'CDF', 'NZD', 'CRC', 'HRK', 'CUP', 'CZK', 'DKK', 'DJF', 'DOP', 'ECS', 'EGP', 'SVC', 'ERN', 'ETB', 'FKP', 'FJD', 'GMD', 'GEL', 'GHS', 'GIP', 'GBP', 'QTQ', 'GGP', 'GNF', 'GWP', 'GYD', 'HTG', 'HNL', 'HKD', 'HUF', 'ISK', 'INR', 'IDR', 'IRR', 'IQD', 'ILS', 'JMD', 'JPY', 'JOD', 'KZT', 'KES', 'KPW', 'KRW', 'KWD', 'KGS', 'LAK', 'LVL', 'LBP', 'LSL', 'LRD', 'LYD', 'CHF', 'LTL', 'MOP', 'MKD', 'MGF', 'MWK', 'MYR', 'MVR', 'MRO', 'MUR', 'MXN', 'MDL', 'MNT', 'MAD', 'MZN', 'MMK', 'NAD', 'NPR', 'ANG', 'XPF', 'NIO', 'NGN', 'OMR', 'PKR', 'PAB', 'PGK', 'PYG', 'PEN', 'PHP', 'PLN', 'QAR', 'RON', 'RUB', 'RWF', 'SHP', 'WST', 'STD', 'SAR', 'RSD', 'SCR', 'SLL', 'SGD', 'SBD', 'SOS', 'ZAR', 'SSP', 'LKR', 'SDG', 'SRD', 'SZL', 'SEK', 'SYP', 'TWD', 'TJS', 'TZS', 'THB', 'TOP', 'TTD', 'TND', 'TRY', 'TMT', 'UGX', 'UAH', 'AED', 'UYU', 'UZS', 'VUV', 'VEF', 'VND', 'YER', 'ZMW', 'ZWD')
+        ),
     	array(
             'name' => 'List Price',
             'id' => $prop_prefix . 'list_price',
@@ -49,6 +65,30 @@ $prop_meta_box = array(
             'name' => 'List Date',
             'id' => $prop_prefix . 'list_date',
             'type' => 'date',
+            'std' => ''
+        ),
+        array(
+            'name' => 'Weekly Rental High Season',
+            'id' => $prop_prefix . 'weekly_rental_high_season',
+            'type' => 'price',
+            'std' => ''
+        ),
+        array(
+            'name' => 'Weekly Rental Low Season',
+            'id' => $prop_prefix . 'weekly_rental_low_season',
+            'type' => 'price',
+            'std' => ''
+        ),
+        array(
+            'name' => 'Monthly Rental High Season',
+            'id' => $prop_prefix . 'monthly_rental_high_season',
+            'type' => 'price',
+            'std' => ''
+        ),
+        array(
+            'name' => 'Monthly Rental Low Season',
+            'id' => $prop_prefix . 'monthly_rental_low_season',
+            'type' => 'price',
             'std' => ''
         ),
         array(
@@ -98,7 +138,7 @@ $prop_meta_box = array(
             'std' => ''
         ),
          array(
-            'name' => 'State',
+            'name' => 'State / Provinces / Departments',
             'id' => $prop_prefix . 'prop_state',
             'type' => 'text',
             'std' => ''
@@ -157,6 +197,12 @@ $prop_meta_box = array(
             'id' => $prop_prefix . 'prop_land_size',
             'type' => 'footage',
             'std' => ''
+        ),
+         array(
+            'name' => 'Metric Type',
+            'id' => $prop_prefix . 'prop_size_metric',
+            'type' => 'select_metric',
+            'options' => array('Sq Ft', 'Sq M', 'Acres')
         ),
         array(
             'name' => 'Virtual Tour Link',
@@ -284,8 +330,21 @@ function prop_show_box() {
 				echo '<tr>',
 				'<th style="width:15%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
 				'<td><div style="margin-left:-10px;">';
-				echo '$ <input type="text" class="numbers_only" name="', $field['id'], '" id="', $field['id'], '" value="', $prop_meta ? $prop_meta : $field['std'], '" size="20" style="width:20%; min-width:150px;" />', '<br />', isset($field['desc']);
+				 echo '$ <input type="text" class="numbers_only" name="', $field['id'], '" id="', $field['id'], '" value="', $prop_meta ? $prop_meta : $field['std'], '" size="20" style="width:20%; min-width:150px;" />', '<br />', isset($field['desc']);
 				echo     '</div></td>','</tr>';
+				break;
+				 case 'select_currency':
+				echo '<tr>',
+				'<th style="width:15%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
+				'<td>';
+                echo '<select name="', $field['id'], '" id="', $field['id'], '">';
+                foreach ($field['options'] as $option) {
+                    echo '<option', $prop_meta == $option ? ' selected="selected"' : '', '>', $option, '</option>';
+                }
+                echo '</select>';
+                echo     '</td>','</tr>';
+            break;
+
 			break;
 			case 'text':
 				echo '<tr>',
@@ -298,7 +357,7 @@ function prop_show_box() {
 				echo '<tr>',
 				'<th style="width:15%"><label for="', $field['id'], '">', $field['name'], '</label></th>',
 				'<td>';
-				echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $prop_meta ? $prop_meta : $field['std'], '" size="20" style="width:20%; min-width:150px;" />', ' SqFt.<br />', isset($field['desc']);
+				echo '<input type="text" name="', $field['id'], '" id="', $field['id'], '" value="', $prop_meta ? $prop_meta : $field['std'], '" size="20" style="width:20%; min-width:150px;" />', '<br />', isset($field['desc']);
 				echo     '</td>','</tr>';
 			break;
 			case 'date':
@@ -324,6 +383,18 @@ function prop_show_box() {
 				echo     '</td>','</tr>';
 				echo '<tr><td colspan="2"><hr style="background:#ddd; border:0px; height:1px; position:relative; width:100%;" /><h4>About the Property</h4></td></tr>';
 			break;
+
+				case 'select_metric':
+				echo '<tr>',
+				'<th style="width:15%"><label for="', $field['id'], '">', $field['name'], ' <br /><span style="font-size:10px;font-weight:normal;">(Used for Living Space and Land Size)</span></label></th>',
+				'<td>';
+                echo '<select name="', $field['id'], '" id="', $field['id'], '">';
+                foreach ($field['options'] as $option) {
+                    echo '<option', $prop_meta == $option ? ' selected="selected"' : '', '>', $option, '</option>';
+                }
+                echo '</select>';
+                echo '</td> </tr>';
+            break;
 
 			case 'select_neigh':
 				echo '<tr><td colspan="2"><hr style="background:#ddd; border:0px; height:1px; position:relative; width:100%;" /><h4>Attach a Neighborhood to this Property</h4></td></tr><tr>',
@@ -499,14 +570,14 @@ function prop_plugin_load()
 ################################################################################
 // Enable Datepicker
 ################################################################################
-function my_admin_footer() {
+function rewa_property_admin_footer() {
 	?>
 	<script type="text/javascript">
 jQuery(function(){jQuery(".datepicker").datepicker()});
 	</script>
 	<?php
 }
-add_action('admin_footer', 'my_admin_footer');
+add_action('admin_footer', 'rewa_property_admin_footer');
 
 
 ################################################################################
@@ -681,6 +752,13 @@ function the_prop_city() {
 		echo $the_prop_city;
 	 }
 }
+function the_prop_currency() {
+	$get_prop_currency = get_post_meta(get_the_ID(), 'dbt_list_currency', true);
+	$the_prop_currency = $get_prop_currency;
+	if ($the_prop_currency == '') { } else {
+		echo $the_prop_currency;
+	 }
+}
 function the_prop_state() {
 	$get_prop_state = get_post_meta(get_the_ID(), 'dbt_prop_state', true);
 	$the_prop_state = $get_prop_state;
@@ -747,16 +825,28 @@ function the_prop_garage() {
 }
 function the_prop_living_space() {
 	$get_prop_living_space = get_post_meta(get_the_ID(), 'dbt_prop_living_space', true);
+	$get_prop_size_metric = get_post_meta(get_the_ID(), 'dbt_prop_size_metric', true);
 	$the_prop_living_space = $get_prop_living_space;
+	$the_prop_size_metric = $get_prop_size_metric;
 	if ($the_prop_living_space == '') { } else {
-		echo '<li class="pdb-item-title">Living Space</li><li class="pdb-item">'.$the_prop_living_space.' SqFt.</li><li class="clear"></li>';
+		echo '<li class="pdb-item-title">Living Space</li><li class="pdb-item">'. $the_prop_living_space . ' ' . $the_prop_size_metric . '</li><li class="clear"></li>';
 	 }
 }
+function the_prop_size_metric() {
+	$get_prop_size_metric = get_post_meta(get_the_ID(), 'dbt_prop_size_metric', true);
+	$the_prop_size_metric = $get_prop_size_metric;
+	if ($the_prop_size_metric == '') { } else {
+		echo '<li class="pdb-item-title">Living Space</li><li class="pdb-item">'.$the_prop_size_metric.'</li><li class="clear"></li>';
+	 }
+}
+
 function the_prop_land_size() {
 	$get_prop_land_size = get_post_meta(get_the_ID(), 'dbt_prop_land_size', true);
+	$get_prop_size_metric = get_post_meta(get_the_ID(), 'dbt_prop_size_metric', true);
 	$the_prop_land_size = $get_prop_land_size;
+	$the_prop_size_metric = $get_prop_size_metric;
 	if ($the_prop_land_size == '') { } else {
-		echo '<li class="pdb-item-title">Lot Size</li><li class="pdb-item">'.$the_prop_land_size.' SqFt.</li><li class="clear"></li>';
+		echo '<li class="pdb-item-title">Lot Size</li><li class="pdb-item">'.$the_prop_land_size . ' ' . $the_prop_size_metric . '</li><li class="clear"></li>';
 	 }
 }
 function the_prop_virtual_tour() {
