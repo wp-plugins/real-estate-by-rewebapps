@@ -216,7 +216,7 @@ function neighborhood_register() {
 ################################################################################
 // Neighborhood Category - Taxonomy
 ################################################################################
- 	register_taxonomy("neighborhood-category", array("neighborhoods"), array("hierarchical" => true, 'show_admin_column' => true, "label" => "Neighborhood Category", "rewrite" => array('slug' => 'neighborhood-category'), "query_var" => true));
+ 	register_taxonomy("neighborhood-category", array("neighborhoods"), array("hierarchical" => true, 'show_admin_column' => true, "label" => "Neighborhood Category", "rewrite" => array('slug' => 'neighborhood-category', 'with_front' => false), "query_var" => true));
 	register_post_type( 'neighborhoods' , $args );
 
 }
@@ -368,7 +368,7 @@ add_filter( 'template_include', 'include_neighborhoods_template', 1 );
 
 function include_neighborhoods_template( $template_path ) {
     if ( get_post_type() == 'neighborhoods' ) {
-    	// Single Property Template
+    	// Single Neighborhood Template
         if ( is_single() ) {
             // checks if the file exists in the theme first,
             // otherwise serve the file from the plugin
@@ -389,6 +389,16 @@ function include_neighborhoods_template( $template_path ) {
                 $template_path = plugin_dir_path( __FILE__ ) . '../templates/archive-neighborhoods.php';
             }
         }
+
+        // Neighborhood Taxonomy Archive Template
+		if ( is_tax('property-type')) {
+            if ( $theme_file = locate_template( array ( 'taxonomy-neighborhood-category.php' ) ) ) {
+                $template_path = $theme_file;
+            } else {
+                $template_path = plugin_dir_path( __FILE__ ) . '../templates/taxonomy-neighborhood-category.php';
+            }
+		}
+
 
 
     }
