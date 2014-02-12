@@ -359,26 +359,6 @@ function the_agent_properties() {
     endif;
 }
 
-################################################################################
-// Setup Agent Testimonials
-################################################################################
-function the_agent_testimonials() {
-	$args = array(
-		'post_type' => 'testimonials',
-		'showposts' => 10,
-		'meta_query' => array(
-			array(
-				'key' => 'dbt_testimonials_agent_select',
-				'value' => get_the_title(),
-				'compare' => 'LIKE'
-			)
-		)
-	);
-	$agent_testimonial_query = new WP_Query( $args );
-	if ($agent_testimonial_query->have_posts()) :
-	echo '<li class="view-testimonials"><a href="'.home_url().'/testimonials/?agent='.get_the_title().'">View Testimonials</a></li>';
-    endif;
-}
 
 ################################################################################
 // Setup Pagination
