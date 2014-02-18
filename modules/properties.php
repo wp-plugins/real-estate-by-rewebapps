@@ -1,5 +1,50 @@
 <?php
 
+###########################################################################
+# Search by Property ID
+###########################################################################
+class PostsMetaSearch {
+
+	function PostsMetaSearch() {
+		add_filter( 'restrict_manage_posts', array( $this, 'restrict_manage_posts' ) );
+		add_filter( 'request',               array( $this, 'request_admin' ) );
+	}
+
+	function request_admin( $request ) {
+
+		if ( !is_admin() )
+			return $request;
+
+		if ( isset( $_GET['mk'] ) and !empty( $_GET['mk'] ) and isset( $_GET['mv'] ) and !empty( $_GET['mv'] ) ) {
+			$request['meta_key']   = $_GET['mk'];
+			$request['meta_value'] = $_GET['mv'];
+		}
+
+		return $request;
+
+	}
+
+	function restrict_manage_posts() {
+
+		global $wpdb;
+
+		$mks = $wpdb->get_col( "
+			SELECT DISTINCT meta_key
+			FROM {$wpdb->postmeta}
+			ORDER BY meta_key ASC
+		" );
+
+		?>
+		<select name="mk" style="display:none">
+			<option value="dbt_mls_id" <?php selected( $_GET['mk'], $mk ); ?>>MLS Id</option>
+		</select>Search By MLS ID:<input type="text" size="16" value="<?php echo esc_attr( $_GET['mv'] ); ?>" name="mv" />
+		<?php
+	}
+
+}
+
+$posts_meta_search = new PostsMetaSearch();
+
 
 ################################################################################
 // Setup Pagination
