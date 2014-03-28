@@ -62,7 +62,7 @@ So for example if you have a property type of land and a status of sold you can 
 
 <pre><?php bloginfo('url')?>/properties/?property-type=land&property-status=sold</pre>
 
-<p>Note: Please make sure you use the slug name for your property type and status.</p>
+<p>Note: Please make sure you use the slug name for your property type and status. If you wish to exclude a property type or status just use != instead of = within the url structure.</p>
 
 <hr>
 
