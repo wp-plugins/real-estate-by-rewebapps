@@ -3,7 +3,7 @@ Author: ReWebApps
 Author URL: http://www.realestatewebapps.com/
 Contributors: Andrew Bowen, Brandon Hubbard
 Donate link: http://www.realestatewebapps.com/
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: 1.6.0
 Tags: real estate, realestate, properties, agents, ReWebApps, Real Estate Web Apps, nextgen-gallery, nextgen gallery, real estate wordpress
 License: GPLv3
